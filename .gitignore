@@ -1,0 +1,11 @@
+.shards/
+shard.lock
+docs/
+lib/
+*.txt
+*.trn
+*.sqlite
+*.brain
+*-wal
+*-shm
+/hailo-cr
