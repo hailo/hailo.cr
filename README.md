@@ -1,6 +1,7 @@
 # 🔴 hailo.cr
 
 [![License GPL 3][badge-license]][copying]
+[![Travis CI][badge-travis-ci]][travis-ci]
 
 Hailo is a Markov chatterbot inspired by [MegaHAL][megahal].
 
@@ -58,6 +59,8 @@ Public License for more details.
 See [`COPYING`][copying] for the complete license.
 
 [badge-license]: https://img.shields.io/badge/license-GPL_3-green.svg
+[badge-travis-ci]: https://travis-ci.org/hailo/hailo.cr.svg?branch=master
+[travis-ci]: https://travis-ci.org/hailo/hailo.cr
 [megahal]: https://en.wikipedia.org/wiki/MegaHAL
 [hailo]: https://github.com/hailo/hailo
 [crystal]: https://crystal-lang.org/
