@@ -1,19 +1,19 @@
 # 🔴 hailo.cr
 
-[![License GPL 3][badge-license]][copying]
-[![Travis CI][badge-travis-ci]][travis-ci]
+[![License GPL 3](https://img.shields.io/badge/license-GPL_3-green.svg)](https://github.com/hailo/hailo.cr/blob/master/COPYING)
+[![Travis CI](https://travis-ci.org/hailo/hailo.cr.svg?branch=master)](https://travis-ci.org/hailo/hailo.cr)
 
-Hailo is a Markov chatterbot inspired by [MegaHAL][megahal].
+Hailo is a Markov chatterbot inspired by [MegaHAL](https://en.wikipedia.org/wiki/MegaHAL).
 
-It is actually a port of the eponymous [Hailo Perl module][hailo].
+It is actually a port of the eponymous [Hailo Perl module](https://github.com/hailo/hailo).
 
-The difference being that this one's written in [Crystal][crystal],
+The difference being that this one's written in [Crystal](https://crystal-lang.org/),
 consists of less code, runs faster, and uses less memory. It also
 drops support for multiple storage engines, sticking with SQLite only.
 
 ## Installation
 
-First, install [Crystal][install-crystal]. Then do:
+First, install [Crystal](https://crystal-lang.org/docs/installation/). Then do:
 
 ```sh
 git clone https://github.com/hailo/hailo-cr.git
@@ -35,10 +35,13 @@ hailo = Hailo.new("test.sqlite")
 puts hailo.learn_and_reply("oh hi there")
 ```
 
+See the [API documentation](https://hailo-cr.readthedocs.io/en/latest/)
+for more information.
+
 ## Support
 
-You can ask a question in the [issue tracker][issues], email me at
-hinrik.sig@gmail.com, or hit me up on FreeNode (#hailo).
+You can ask a question in the [issue tracker](https://github.com/hailo/hailo.cr/issues),
+email me at hinrik.sig@gmail.com, or hit me up on FreeNode (#hailo).
 
 ## Contribute
 
@@ -56,15 +59,5 @@ WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
 Public License for more details.
 
-See [`COPYING`][copying] for the complete license.
-
-[badge-license]: https://img.shields.io/badge/license-GPL_3-green.svg
-[badge-travis-ci]: https://travis-ci.org/hailo/hailo.cr.svg?branch=master
-[travis-ci]: https://travis-ci.org/hailo/hailo.cr
-[megahal]: https://en.wikipedia.org/wiki/MegaHAL
-[hailo]: https://github.com/hailo/hailo
-[crystal]: https://crystal-lang.org/
-[install-crystal]: https://crystal-lang.org/docs/installation/
-[api-docs]: https://hailo-cr.readthedocs.io/en/latest/
-[issues]: https://github.com/hailo/hailo.cr/issues
-[COPYING]: https://github.com/hailo/hailo.cr/blob/master/COPYING
+See [`COPYING`](https://github.com/hailo/hailo.cr/blob/master/COPYING)
+for the complete license.
