@@ -95,8 +95,8 @@ module Hailo::Reply
       loop do
         break if i % @order == 0 && (i >= repeat_limit * 3 ||
                  i >= repeat_limit && output.uniq.size <= @order)
-        token_id = choose_linked_token_id(expr, direction)
 
+        token_id = choose_linked_token_id(expr, direction)
         break if token_id == BOUNDARY_TOKEN_ID
 
         case direction

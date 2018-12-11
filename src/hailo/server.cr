@@ -16,6 +16,7 @@ class Hailo::Server
 
   class Response
     JSON.mapping(reply: String?, error: String?)
+
     def initialize(@reply = nil, @error = nil); end
   end
 
