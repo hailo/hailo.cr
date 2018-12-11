@@ -13,7 +13,8 @@ drops support for multiple storage engines, sticking with SQLite only.
 
 ## Installation
 
-First, install [Crystal](https://crystal-lang.org/docs/installation/). Then do:
+First, install [Crystal](https://crystal-lang.org/docs/installation/) along
+with `libsqlite3-dev`. Then do:
 
 ```sh
 git clone https://github.com/hailo/hailo-cr.git
