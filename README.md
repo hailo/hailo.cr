@@ -36,7 +36,7 @@ hailo = Hailo.new("test.sqlite")
 puts hailo.learn_and_reply("oh hi there")
 ```
 
-See the [API documentation](https://hailo-cr.readthedocs.io/en/latest/)
+See the [API documentation](https://hailo.github.io/hailo.cr/Hailo.html)
 for more information.
 
 ## Support
