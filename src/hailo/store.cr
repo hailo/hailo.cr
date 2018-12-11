@@ -93,9 +93,15 @@ module Hailo::Store
     end
   end
 
-  private def bulk_update
+  private def with_transaction
+    @db.transaction do |_|
+      yield
+    end
+  end
+
+  private def with_bulk_transaction
     drop_indexes
-    yield
+    with_transaction { yield }
     create_indexes(@order)
     @db.exec "VACUUM"
   end

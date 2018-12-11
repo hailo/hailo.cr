@@ -9,7 +9,7 @@ module Hailo::Learn
     tokens = make_tokens(message)
     return if tokens.size < @order
 
-    @db.transaction do |_|
+    with_transaction do
       token_ids = increase_token_occurrences(tokens)
 
       process_markov_chain(token_ids, @order) do |expr, prev_token_id, next_token_id|
@@ -23,12 +23,6 @@ module Hailo::Learn
   end
 
   def train(train_file, progress = false)
-    bulk_update do
-      learn_with_cache(train_file, progress)
-    end
-  end
-
-  private def learn_with_cache(train_file, progress)
     cache = Learn::Cache.new(@order)
     nr_lines = File.read_lines(train_file).size
     message_count = 0
@@ -44,7 +38,7 @@ module Hailo::Learn
       end
     end
 
-    @db.transaction do |_|
+    with_bulk_transaction do
       add_info("message_count", message_count)
 
       with_progress(cache.tokens.size, "(2/3) Storing tokens", print: progress) do |update_progress|
