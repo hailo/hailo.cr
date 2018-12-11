@@ -17,8 +17,8 @@ First, install [Crystal](https://crystal-lang.org/docs/installation/) along
 with `libsqlite3-dev`. Then do:
 
 ```sh
-git clone https://github.com/hailo/hailo-cr.git
-cd hailo-cr
+git clone https://github.com/hailo/hailo.cr.git
+cd hailo.cr
 shards install
 crystal build bin/hailo-cr.cr --release
 ```
