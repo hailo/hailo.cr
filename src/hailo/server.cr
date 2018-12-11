@@ -23,7 +23,6 @@ class Hailo::Server
   @hailo : Hailo
   @host : String
   @port : Int32
-  @learning_queue = Channel(String).new
 
   def initialize(@hailo, @host, @port)
   end
@@ -43,7 +42,7 @@ class Hailo::Server
       case context.request.path
       when "/learn"
         request = LearnRequest.from_json(json)
-        @learning_queue.send(request.input)
+        @hailo.learn(request.input)
       when "/learn_and_reply"
         request = LearnAndReplyRequest.from_json(json)
         reply = @hailo.learn_and_reply(request.input)
