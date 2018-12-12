@@ -1,7 +1,7 @@
 require "progress"
 
 module Hailo::Progress
-  private def with_progress(size, message, timed = false, print = true)
+  private def with_progress(size, message, timed = false, print = true) : Nil
     if timed && print
       before = Time.now
     end
@@ -19,7 +19,7 @@ module Hailo::Progress
   end
 
   # this callback avoids calling ProgressBar#inc more than 10k times
-  private def progress_callback(size)
+  private def progress_callback(size) : Proc
     factor = 1
     total = size
     if size > 10_000 # precision: 99.99%

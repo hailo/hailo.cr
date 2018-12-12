@@ -103,7 +103,7 @@ module Hailo::Parse
   RX_END_PARAGRAPH     = /(?:#{ELLIPSIS}|\s+|^)#{OPEN_QUOTE}?(?:#{SPLIT_WORD}(?:\.#{SPLIT_WORD})*)\K(#{CLOSE_QUOTE}?)$/
   RX_CAPITALIZE_IM     = /(?:(?:#{ELLIPSIS}|\s+)|#{OPEN_QUOTE})\Ki(?=#{APOSTROPHE}#{ALPHABET})/
 
-  private def make_tokens(input)
+  private def make_tokens(input) : Array(Token)
     tokens = Array(Token).new
 
     # remove line continuation dashes
@@ -154,7 +154,7 @@ module Hailo::Parse
     tokens
   end
 
-  private def make_output(tokens)
+  private def make_output(tokens) : String
     output = String.build do |str|
       tokens.each_with_index do |token, i|
         str << token.text
@@ -174,7 +174,7 @@ module Hailo::Parse
     format_output(output)
   end
 
-  private def format_output(text)
+  private def format_output(text) : String
     {RX_CAPITALIZE_FIRST, RX_CAPITALIZE_SECOND}.each do |pattern|
       text = text.sub(pattern) do |match|
         match.sub(/^./) { |first| first.upcase }

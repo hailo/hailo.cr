@@ -12,7 +12,7 @@ class Hailo::Learn::Cache
   def initialize(@order)
   end
 
-  def learn_from_tokens(tokens)
+  def learn_from_tokens(tokens) : Nil
     seen_tokens = Set(Token).new
     token_ids = tokens.map do |token|
       @tokens[token] ||= Token::State.new(@tokens.size + 1, 0)

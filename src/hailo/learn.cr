@@ -5,7 +5,7 @@ require "./learn/cache"
 module Hailo::Learn
   include Hailo::Progress
 
-  def learn(message)
+  def learn(message) : Nil
     tokens = make_tokens(message)
     return if tokens.size < @order
 
@@ -22,7 +22,7 @@ module Hailo::Learn
     end
   end
 
-  def train(train_file, progress = false)
+  def train(train_file, progress = false) : Nil
     cache = Learn::Cache.new(@order)
     nr_lines = File.read_lines(train_file).size
     message_count = 0

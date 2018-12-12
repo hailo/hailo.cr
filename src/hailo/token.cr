@@ -12,13 +12,13 @@ struct Hailo::Token
   def initialize(@text, @spacing = Spacing::Normal)
   end
 
-  def similar_tokens
+  def similar_tokens : Array(Token)
     (Spacing.values - [spacing]).map do |other_spacing|
       Token.new(text, other_spacing)
     end
   end
 
-  def inspect(io)
+  def inspect(io) : Nil
     if !spacing.normal?
       io << spacing
       io << "|"

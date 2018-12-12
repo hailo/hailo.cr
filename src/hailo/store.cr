@@ -8,11 +8,11 @@ module Hailo::Store
   @select = Hash(String, DB::Statement).new
   @insert = Hash(String, DB::Statement).new
 
-  private def open_storage(brain_file)
+  private def open_storage(brain_file) : DB::Connection
     DB.connect brain_file ? "sqlite3:#{brain_file}" : "sqlite3::memory:"
   end
 
-  private def init_storage(order)
+  private def init_storage_and_get_order(order) : Int32
     @db.scalar "PRAGMA journal_mode=WAL"
     @db.exec "PRAGMA synchronous=OFF"
     order ||= DEFAULT_MARKOV_ORDER
@@ -34,7 +34,7 @@ module Hailo::Store
     used_order
   end
 
-  private def new_storage?
+  private def new_storage? : Bool
     @db.query("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'info'") do |res|
       return false if res.move_next
     end
@@ -42,7 +42,7 @@ module Hailo::Store
     true
   end
 
-  private def create_schema(order)
+  private def create_schema(order) : Nil
     schema = Array(String).new
 
     schema.push <<-SQL
@@ -77,7 +77,7 @@ module Hailo::Store
     schema.each { |sql| @db.exec sql }
   end
 
-  private def create_indexes(order)
+  private def create_indexes(order) : Nil
     @db.exec "CREATE UNIQUE INDEX token_text_spacing on token (text, spacing)"
 
     (2..order).each do |i|
@@ -85,7 +85,7 @@ module Hailo::Store
     end
   end
 
-  private def drop_indexes
+  private def drop_indexes : Nil
     @db.exec "DROP INDEX IF EXISTS token_text_spacing"
 
     (2..@order).each do |i|
@@ -93,26 +93,26 @@ module Hailo::Store
     end
   end
 
-  private def with_transaction
+  private def with_transaction : Nil
     @db.transaction do |_|
       yield
     end
   end
 
-  private def with_bulk_transaction
+  private def with_bulk_transaction : Nil
     drop_indexes
     with_transaction { yield }
     create_indexes(@order)
     @db.exec "VACUUM"
   end
 
-  private def get_info(attr : String)
+  private def get_info(attr : String) : String?
     @db.query("SELECT text FROM info WHERE attribute = ?", attr) do |res|
       return res.read(String) if res.move_next
     end
   end
 
-  private def prepare_statements(order)
+  private def prepare_statements(order) : Nil
     @insert["info"] =
       @db.build("INSERT OR REPLACE INTO info (attribute, text) VALUES (?, ?)")
     @insert["token"] =
@@ -135,19 +135,19 @@ module Hailo::Store
     @select["random_token_id"] = @db.build "SELECT id FROM token WHERE id >= (abs(RANDOM()) % (SELECT max(id) FROM token))+1 LIMIT 1"
   end
 
-  private def add_info(attr, value)
+  private def add_info(attr, value) : Nil
     @insert["info"].exec([attr, value])
   end
 
-  private def add_token(id, text, spacing, occurrences)
+  private def add_token(id, text, spacing, occurrences) : Nil
     @insert["token"].exec([id, text, spacing, occurrences])
   end
 
-  private def add_expr(expr, link_counts)
+  private def add_expr(expr, link_counts) : Nil
     @insert["expr"].exec([expr, link_counts].flatten)
   end
 
-  private def get_token_state(tokens)
+  private def get_token_state(tokens) : Hash(Token, Token::State)
     token_states = Hash(Token, Token::State).new
     return token_states if tokens.empty?
 
@@ -168,7 +168,7 @@ module Hailo::Store
     token_states
   end
 
-  private def increase_token_occurrences(tokens)
+  private def increase_token_occurrences(tokens) : Array(TokenId)
     return Array(TokenId).new if tokens.empty?
     token_states = get_token_state(tokens)
 
@@ -188,12 +188,12 @@ module Hailo::Store
     tokens.map { |t| token_states[t].id }
   end
 
-  private def get_link_counts(expr)
+  private def get_link_counts(expr) : LinkCounts
     rs = @select["get_link_counts"].query expr
     rs.move_next ? LinkCounts.from_msgpack(rs.read(Bytes)) : LinkCounts.new
   end
 
-  private def increase_link_counts(expr, prev_token_id, next_token_id)
+  private def increase_link_counts(expr, prev_token_id, next_token_id) : Nil
     link_counts = get_link_counts(expr)
 
     prev_counts = link_counts[prev_token_id] ||= {prev: 0, next: 0}
@@ -204,7 +204,7 @@ module Hailo::Store
     @insert["expr"].exec [expr, link_counts.to_msgpack].flatten
   end
 
-  private def get_tokens(token_ids)
+  private def get_tokens(token_ids) : Array(Token)
     return Array(Token).new if token_ids.empty?
     placeholders = (1..token_ids.size).map { '?' }.join ','
 
@@ -220,13 +220,13 @@ module Hailo::Store
     token_ids.map { |id| tokens[id] }
   end
 
-  private def get_random_token_id
+  private def get_random_token_id : TokenId?
     @select["random_token_id"].query do |res|
       return res.read(Int32) if res.move_next
     end
   end
 
-  private def get_expr_by_token_id(token_id = nil)
+  private def get_expr_by_token_id(token_id = nil) : Expression?
     token_id = get_random_token_id if !token_id
 
     (1..@order).to_a.shuffle.each do |pos|

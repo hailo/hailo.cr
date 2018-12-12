@@ -25,10 +25,10 @@ class Hailo
 
   def initialize(brain_file = nil, order = nil, @debug = false)
     @db = open_storage(brain_file)
-    @order = init_storage(order)
+    @order = init_storage_and_get_order(order)
   end
 
-  def learn_and_reply(message)
+  def learn_and_reply(message) : String?
     learn(message)
     reply(message)
   end

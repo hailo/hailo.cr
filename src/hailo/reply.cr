@@ -2,7 +2,7 @@ require "./token"
 require "./token/probability"
 
 module Hailo::Reply
-  def reply(message = nil)
+  def reply(message = nil) : String?
     if message
       input_tokens = make_tokens(message)
       reply_tokens = choose_reply(input_tokens)
@@ -14,7 +14,7 @@ module Hailo::Reply
     make_output(reply_tokens)
   end
 
-  private def choose_reply(tokens = Array(Token).new)
+  private def choose_reply(tokens = Array(Token).new) : Array(Token)?
     token_set = tokens.to_set
     candidates = token_set.select { |t| t.spacing == Token::Spacing::Normal }
     key_token_states = get_token_state(candidates).values
@@ -52,7 +52,7 @@ module Hailo::Reply
     get_tokens(best_reply)
   end
 
-  private def get_pivot_probabilities(token_states)
+  private def get_pivot_probabilities(token_states) : Array(Token::Probability)
     probabilities = Array(Token::Probability).new
     return probabilities if token_states.empty?
     return [Token::Probability.new(token_states[0].id, 1_f64)] if token_states.size == 1
@@ -74,7 +74,7 @@ module Hailo::Reply
     probabilities
   end
 
-  private def choose_pivot(token_probs)
+  private def choose_pivot(token_probs) : TokenId
     random = Random.rand
     p_sum = 0
     token_probs.each do |token_prob|
@@ -85,7 +85,7 @@ module Hailo::Reply
     return token_probs[0].token_id
   end
 
-  private def generate_reply(pivot_expr)
+  private def generate_reply(pivot_expr) : Array(TokenId)
     repeat_limit = Math.min(@order * 10, 50)
     output = pivot_expr.dup
 
@@ -115,7 +115,7 @@ module Hailo::Reply
     output
   end
 
-  private def choose_linked_token_id(expr, direction)
+  private def choose_linked_token_id(expr, direction) : TokenId
     link_counts = get_link_counts(expr)
 
     novel_tokens = Array(TokenId).new
@@ -126,7 +126,7 @@ module Hailo::Reply
     novel_tokens.sample
   end
 
-  private def score_reply(reply, key_token_ids)
+  private def score_reply(reply, key_token_ids) : Float64
     score = 0_f64
 
     process_markov_chain(reply, @order) do |expr, prev_token_id, next_token_id|

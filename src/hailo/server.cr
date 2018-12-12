@@ -27,7 +27,7 @@ class Hailo::Server
   def initialize(@hailo, @host, @port)
   end
 
-  def run
+  def run : Nil
     server = HTTP::Server.new do |context|
       context.response.content_type = "application/json"
       json = context.request.body

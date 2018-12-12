@@ -5,7 +5,7 @@ struct Hailo::Token::State
   def initialize(@id, @occurrences)
   end
 
-  def inspect(io)
+  def inspect(io) : Nil
     io << sprintf("%d x %d", @id, @occurences)
   end
 end

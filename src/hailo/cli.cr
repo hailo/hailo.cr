@@ -15,7 +15,7 @@ module Hailo::CLI
   @@bind = "localhost"
   @@port = 9001
 
-  def self.run
+  def self.run : Nil
     parse_options
     hailo = Hailo.new(@@brain_file, @@order, @@debug)
 
@@ -33,7 +33,7 @@ module Hailo::CLI
     end
   end
 
-  private def self.parse_options
+  private def self.parse_options : Nil
     OptionParser.parse! do |parser|
       parser.banner = "Usage: hailo [options]"
       parser.invalid_option do |opt|

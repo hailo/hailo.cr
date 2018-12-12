@@ -5,7 +5,7 @@ struct Hailo::Token::Probability
   def initialize(@token_id, @p)
   end
 
-  def inspect(io)
+  def inspect(io) : Nil
     io << sprintf("%d => %.2f%%", @token_id, @p*100)
   end
 end

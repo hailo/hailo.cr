@@ -8,7 +8,7 @@ module Hailo::Markov
   #   yield [2, 3], 1, 4
   #   yield [3, 4], 2, 5
   #   yield [4, 5], 3, 0
-  private def process_markov_chain(token_ids, order)
+  private def process_markov_chain(token_ids, order) : Nil
     (0..token_ids.size - order).each do |i|
       expr = token_ids[i..i + order - 1]
       prev_id = i == 0 ? BOUNDARY_TOKEN_ID : token_ids[i - 1]
