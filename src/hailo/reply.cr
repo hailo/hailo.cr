@@ -43,6 +43,9 @@ module Hailo::Reply
       end
 
       reply_count += 1
+
+      # give other fibers a chance to work once in a while
+      Fiber.yield if reply_count % 100 == 0
     end
 
     if @debug
