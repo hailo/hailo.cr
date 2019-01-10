@@ -49,8 +49,8 @@ module Hailo::Parse
   HOSTNAME     = /#{HOST_WORD}(?:\.#{HOST_WORD})*/
   URI_SCHEME   = /(?:#{HOST_WORD}\+)?#{BARE_WORD}:\/\//
   PORT         = /:[0-9]+/
-  URI_EXTRA1   = /[-\d_.~$!#&'()*+,\/:;=?@\[\]]/
-  URI_EXTRA2   = /[-\d_~$!#&'()*+,\/:;=?@\[\]]/
+  URI_EXTRA1   = /[-\d%_.~$!#&'()*+,\/:;=?@\[\]]/
+  URI_EXTRA2   = /[-\d%_~$!#&'()*+,\/:;=?@\[\]]/
   URI_PATH     = /\/(?:(?:#{ALPHABET}+|#{URI_EXTRA1}+)*(?:#{ALPHABET}+|#{URI_EXTRA2}+))?/
   URI          = /#{URI_SCHEME}(?:#{HOSTNAME}|#{IPV4}|#{IPV6})#{PORT}?#{URI_PATH}?/
   OPT_PART     = /(?:#{ALPHABET}|\d)(?:#{ALPHABET}|[_\d])+/

@@ -503,6 +503,11 @@ TOKEN_TESTS = [
     %w{--foo -d --bar-baz},
     %{--foo -d --bar-baz},
   ),
+  TokenTest.new(
+    %{https://www.reddit.com/r/Iceland/comments/aeltxr/%C3%A6var_fatigue/},
+    %w{https://www.reddit.com/r/Iceland/comments/aeltxr/%C3%A6var_fatigue/},
+    %{https://www.reddit.com/r/Iceland/comments/aeltxr/%C3%A6var_fatigue/},
+  ),
 ]
 
 describe "Tokenizer" do
