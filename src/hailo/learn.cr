@@ -12,8 +12,8 @@ module Hailo::Learn
     with_transaction do
       token_ids = increase_token_occurrences(tokens)
 
-      process_markov_chain(token_ids, @order) do |expr, prev_token_id, next_token_id|
-        increase_link_counts(expr, prev_token_id, next_token_id)
+      process_markov_chain(token_ids, @order) do |prev_token_id, expr, next_token_id|
+        increase_link_counts(prev_token_id, expr, next_token_id)
       end
 
       message_count = get_info("message_count")

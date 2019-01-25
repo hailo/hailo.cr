@@ -193,7 +193,7 @@ module Hailo::Store
     rs.move_next ? LinkCounts.from_msgpack(rs.read(Bytes)) : LinkCounts.new
   end
 
-  private def increase_link_counts(expr, prev_token_id, next_token_id) : Nil
+  private def increase_link_counts(prev_token_id, expr, next_token_id) : Nil
     link_counts = get_link_counts(expr)
 
     prev_counts = link_counts[prev_token_id] ||= {prev: 0, next: 0}

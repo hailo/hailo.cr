@@ -25,7 +25,7 @@ class Hailo::Learn::Cache
       @tokens[token].id
     end
 
-    process_markov_chain(token_ids, @order) do |expr, prev_token_id, next_token_id|
+    process_markov_chain(token_ids, @order) do |prev_token_id, expr, next_token_id|
       link_counts = @exprs[expr] ||= LinkCounts.new
 
       prev_counts = link_counts[prev_token_id] ||= {prev: 0, next: 0}

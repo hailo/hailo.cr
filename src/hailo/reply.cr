@@ -132,7 +132,7 @@ module Hailo::Reply
   private def score_reply(reply, key_token_ids) : Float64
     score = 0_f64
 
-    process_markov_chain(reply, @order) do |expr, prev_token_id, next_token_id|
+    process_markov_chain(reply, @order) do |prev_token_id, expr, next_token_id|
       link_counts = nil
 
       if key_token_ids.includes? prev_token_id
