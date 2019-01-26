@@ -20,6 +20,7 @@ module Hailo::Reply
     key_token_states = get_token_state(candidates).values
     pivot_probs = get_pivot_probabilities(key_token_states)
     key_token_ids = key_token_states.map(&.id)
+    key_token_set = key_token_ids.to_set
 
     best_reply = Array(TokenId).new
     best_score = 0.0
@@ -33,7 +34,7 @@ module Hailo::Reply
         return if !pivot_expr
 
         reply = generate_reply(pivot_expr)
-        score = score_reply(reply, key_token_ids)
+        score = score_reply(reply, key_token_set)
         next if !best_reply.empty? && reply.to_set.subset? token_set
 
         if best_reply.empty? || score > best_score
@@ -129,30 +130,29 @@ module Hailo::Reply
     novel_tokens.sample
   end
 
-  private def score_reply(reply, key_token_ids) : Float64
+  private def score_reply(reply, key_token_set) : Float64
     score = 0_f64
 
     process_markov_chain(reply, @order) do |prev_token_id, expr, next_token_id|
       link_counts = nil
 
-      if key_token_ids.includes? prev_token_id
+      if key_token_set.includes? prev_token_id
         link_counts ||= get_link_counts(expr)
         prob = link_counts[prev_token_id][:prev].fdiv link_counts.size
         score -= Math.log(prob)/Math.log(2)
       end
 
-      if key_token_ids.includes? next_token_id
+      if key_token_set.includes? next_token_id
         link_counts ||= get_link_counts(expr)
         prob = link_counts[next_token_id][:next].fdiv link_counts.size
         score -= Math.log(prob)/Math.log(2)
       end
     end
 
-    if reply.size >= 8
-      score /= Math.sqrt(reply.size - 1)
-    elsif reply.size >= 16
-      score /= reply.size
-    end
+    # reduce the score of replies that contain more of the key tokens,
+    # since they are probably less surprising
+    key_count = reply.count { |t| key_token_set.includes? t }
+    score /= Math.sqrt(key_count) if key_count > 1
 
     score
   end

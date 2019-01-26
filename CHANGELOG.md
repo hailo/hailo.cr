@@ -1,6 +1,7 @@
 # Unreleased
 
 - Correctly tokenize URLs that contain `%`
+- Lower the score of replies that contain may of the input tokens
 
 # 0.1.0 (2018-12-06)
 
