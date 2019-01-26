@@ -16,7 +16,7 @@ module Hailo::Reply
 
   private def choose_reply(tokens = Array(Token).new) : Array(Token)?
     token_set = tokens.to_set
-    candidates = token_set.select { |t| t.spacing == Token::Spacing::Normal }
+    candidates = get_key_candidates(token_set)
     key_token_states = get_token_state(candidates).values
     pivot_probs = get_pivot_probabilities(key_token_states)
     key_token_ids = key_token_states.map(&.id)
@@ -54,6 +54,18 @@ module Hailo::Reply
     end
 
     get_tokens(best_reply)
+  end
+
+  private def get_key_candidates(token_set) : Array(Token)
+    candidates = Array(Token).new
+    token_set.each do |token|
+      next if token.spacing != Token::Spacing::Normal
+      next if token_banned?(token.text)
+      replacement = swap_token(token.text)
+      candidates << (replacement ? Token.new(replacement) : token)
+    end
+
+    candidates
   end
 
   private def get_pivot_probabilities(token_states) : Array(Token::Probability)
