@@ -11,6 +11,21 @@ The difference being that this one's written in [Crystal](https://crystal-lang.o
 consists of less code, runs faster, and uses less memory. It also
 drops support for multiple storage engines, sticking with SQLite only.
 
+## Differences from classic MegaHAL
+
+- Uses a space-efficient SQLite database to store the brain (saving 90%
+  of the space)
+- Quite fast at training against a large corpus
+- Includes a server daemon
+- Won't choke when the number of unique tokens passes the 64k mark ;)
+- Sophisticated parser and formatter
+  - Meaningfully tokenizes almost anything you'd encounter in a chatroom
+    (Unicode, URLs, dates & times, quotes, abbreviations etc)
+  - Intelligent handling of punctuation as prefix/postfix/infix tokens
+  - Special consideration of fully-capitalized and partially-capitalized
+    tokens rather than normalizing case and treating them identically
+  - Outputs clean, properly capitalized sentences
+
 ## Installation
 
 First, install [Crystal](https://crystal-lang.org/docs/installation/) along
