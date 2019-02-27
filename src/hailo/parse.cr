@@ -101,7 +101,7 @@ module Hailo::Parse
   RX_CAPITALIZE_REST_A = /(?:#{ELLIPSIS}|\s+)#{OPEN_QUOTE}?\s*#{WORD_STRICT}#{BOUNDARY}\K#{SPLIT_WORD}/
   RX_CAPITALIZE_REST_B = /#{SEPARATOR}#{WORD_STRICT}#{SEPARATOR}#{BOUNDARY}\K#{SPLIT_WORD}/
   RX_END_PARAGRAPH     = /(?:#{ELLIPSIS}|\s+|^)#{OPEN_QUOTE}?(?:#{SPLIT_WORD}(?:\.#{SPLIT_WORD})*)\K(#{CLOSE_QUOTE}?)$/
-  RX_CAPITALIZE_IM     = /(?:(?:#{ELLIPSIS}|\s+)|#{OPEN_QUOTE})\Ki(?=#{APOSTROPHE}#{ALPHABET})/
+  RX_CAPITALIZE_IM     = /(?:(?:#{ELLIPSIS}|\s+)|#{OPEN_QUOTE})\Ki(?=#{APOSTROPHE}#{ALPHABET}|\s|#{PUNCTUATION}|$)/
 
   private def make_tokens(input) : Array(Token)
     tokens = Array(Token).new

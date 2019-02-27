@@ -1,3 +1,7 @@
+# Unreleased
+
+- More consistent capitalization of the word "I"
+
 # 0.2.0 (2019-01-26)
 
 - Correctly tokenize URLs that contain `%`

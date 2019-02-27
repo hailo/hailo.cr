@@ -99,9 +99,9 @@ TOKEN_TESTS = [
     %{Talking about i&34324 yes.},
   ),
   TokenTest.new(
-    %{talking about i},
-    %w{talking about i},
-    %{Talking about i.},
+    %{talking about I},
+    %w{talking about I},
+    %{Talking about I.},
   ),
   TokenTest.new(
     %{none, as most animals do, I love conservapedia.},
@@ -507,6 +507,16 @@ TOKEN_TESTS = [
     %{https://www.reddit.com/r/Iceland/comments/aeltxr/%C3%A6var_fatigue/},
     %w{https://www.reddit.com/r/Iceland/comments/aeltxr/%C3%A6var_fatigue/},
     %{https://www.reddit.com/r/Iceland/comments/aeltxr/%C3%A6var_fatigue/},
+  ),
+  TokenTest.new(
+    %{So i've got it.},
+    %w{so i've got it .},
+    %{So I've got it.},
+  ),
+  TokenTest.new(
+    %{So I basically hack for work.},
+    %w{so i basically hack for work .},
+    %{So I basically hack for work.},
   ),
 ]
 
