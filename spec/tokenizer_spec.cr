@@ -515,7 +515,7 @@ TOKEN_TESTS = [
   ),
   TokenTest.new(
     %{So I basically hack for work.},
-    %w{so i basically hack for work .},
+    %w{so I basically hack for work .},
     %{So I basically hack for work.},
   ),
 ]
