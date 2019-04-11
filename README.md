@@ -54,6 +54,23 @@ puts hailo.learn_and_reply("oh hi there")
 See the [API documentation](https://hailo.github.io/hailo.cr/Hailo.html)
 for more information.
 
+## Hacking
+
+Running the tests is simple:
+
+```sh
+crystal spec
+```
+
+If you've saved a brain file with `hailo-cr --brain whatever.brain`, you can
+easily inspect it since it's just a SQLite file:
+
+```sh
+sqlite3 whatever.brain
+sqlite> .schema
+sqlite> select * from token limit 10;
+```
+
 ## Support
 
 You can ask a question in the [issue tracker](https://github.com/hailo/hailo.cr/issues),

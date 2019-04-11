@@ -69,7 +69,7 @@ module Hailo::Store
     schema.push <<-SQL
       CREATE TABLE expr (
         #{token_column_defs}
-        link_counts BLOB NOT NULL,
+        link_counts BLOB NOT NULL, -- msgpacked LinkCounts
         PRIMARY KEY (#{token_columns.join ", "})
       ) WITHOUT ROWID
       SQL
