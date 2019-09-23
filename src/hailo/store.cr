@@ -29,7 +29,7 @@ module Hailo::Store
     end
 
     prepare_statements(used_order)
-    @insert["info"].exec(["markov_order", order]) if new
+    @insert["info"].exec(args: ["markov_order", order]) if new
 
     used_order
   end
@@ -136,15 +136,15 @@ module Hailo::Store
   end
 
   private def add_info(attr, value) : Nil
-    @insert["info"].exec([attr, value])
+    @insert["info"].exec(args: [attr, value])
   end
 
   private def add_token(id, text, spacing, occurrences) : Nil
-    @insert["token"].exec([id, text, spacing, occurrences])
+    @insert["token"].exec(args: [id, text, spacing, occurrences])
   end
 
   private def add_expr(expr, link_counts) : Nil
-    @insert["expr"].exec([expr, link_counts].flatten)
+    @insert["expr"].exec(args: [expr, link_counts].flatten)
   end
 
   private def get_token_state(tokens) : Hash(Token, Token::State)
@@ -174,13 +174,13 @@ module Hailo::Store
 
     # increase occurrences count of known tokens
     token_states.each do |token, state|
-      @insert["token"].exec([state.id, token.text, token.spacing.value, state.occurrences + 1])
+      @insert["token"].exec(args: [state.id, token.text, token.spacing.value, state.occurrences + 1])
     end
 
     # add unknown tokens
     missing = tokens.select { |t| !token_states.has_key?(t) }.uniq
     rows_to_add = missing.each do |token|
-      result = @insert["token_autoinc"].exec([token.text, token.spacing.value, 1])
+      result = @insert["token_autoinc"].exec(args: [token.text, token.spacing.value, 1])
       token_id = result.last_insert_id.to_i32
       token_states[token] = Token::State.new(token_id, 1)
     end
@@ -189,7 +189,7 @@ module Hailo::Store
   end
 
   private def get_link_counts(expr) : LinkCounts
-    rs = @select["get_link_counts"].query expr
+    rs = @select["get_link_counts"].query args: expr
     rs.move_next ? LinkCounts.from_msgpack(rs.read(Bytes)) : LinkCounts.new
   end
 
@@ -201,7 +201,7 @@ module Hailo::Store
     next_counts = link_counts[next_token_id] ||= {prev: 0, next: 0}
     link_counts[next_token_id] = {prev: next_counts[:prev], next: next_counts[:next] + 1}
 
-    @insert["expr"].exec [expr, link_counts.to_msgpack].flatten
+    @insert["expr"].exec args: [expr, link_counts.to_msgpack].flatten
   end
 
   private def get_tokens(token_ids) : Array(Token)
@@ -209,7 +209,7 @@ module Hailo::Store
     placeholders = (1..token_ids.size).map { '?' }.join ','
 
     tokens = Hash(TokenId, Token).new
-    @db.query "SELECT id, text, spacing FROM token WHERE id IN (#{placeholders})", token_ids do |rs|
+    @db.query "SELECT id, text, spacing FROM token WHERE id IN (#{placeholders})", args: token_ids do |rs|
       rs.each do
         id, text, spacing = rs.read(Int32, String, Int32)
         token = Token.new(text, Token::Spacing.new(spacing))

@@ -34,7 +34,7 @@ module Hailo::CLI
   end
 
   private def self.parse_options : Nil
-    OptionParser.parse! do |parser|
+    OptionParser.parse do |parser|
       parser.banner = "Usage: hailo [options]"
       parser.invalid_option do |opt|
         STDERR.puts "Unrecognized option: #{opt}"

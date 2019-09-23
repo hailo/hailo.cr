@@ -3,7 +3,7 @@ require "progress"
 module Hailo::Progress
   private def with_progress(size, message, timed = false, print = true) : Nil
     if timed && print
-      before = Time.now
+      before = Time.local
     end
 
     puts message if print
@@ -11,7 +11,7 @@ module Hailo::Progress
     yield update_progress
 
     if before && print
-      span = Time.now - before
+      span = Time.local - before
       rate = (size / span.total_milliseconds * 1000).to_i
       secs = sprintf "%.1f", span.to_f
       puts "Processed #{size} in #{secs} seconds; #{rate}/s"
@@ -23,8 +23,8 @@ module Hailo::Progress
     factor = 1
     total = size
     if size > 10_000 # precision: 99.99%
-      factor = (size / 10_000).floor
-      total = (size / factor).floor
+      factor = size // 10_000
+      total = size // factor
     end
 
     progress_bar = ProgressBar.new(total: total, width: 40)
