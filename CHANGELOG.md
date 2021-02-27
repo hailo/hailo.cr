@@ -1,4 +1,4 @@
-# Unreleased
+# 0.2.1 (2021-02-28)
 
 - More consistent capitalization of the word "I"
 

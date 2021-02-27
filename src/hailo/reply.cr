@@ -35,7 +35,7 @@ module Hailo::Reply
 
         reply = generate_reply(pivot_expr)
         score = score_reply(reply, key_token_set)
-        next if !best_reply.empty? && reply.to_set.subset? token_set
+        next if !best_reply.empty? && reply.to_set.subset_of? token_set
 
         if best_reply.empty? || score > best_score
           best_reply = reply

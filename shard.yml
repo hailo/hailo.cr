@@ -1,6 +1,6 @@
 name: hailo
 description: Markov chatterbot like MegaHAL
-version: 0.1.0
+version: 0.2.1
 license: MIT
 authors:
   - Hinrik Örn Sigurðsson <hinrik.sig@gmail.com>
@@ -12,4 +12,6 @@ dependencies:
     github: crystal-community/msgpack-crystal
   progress:
     github: askn/progress
+  readline:
+    github: crystal-lang/crystal-readline
 

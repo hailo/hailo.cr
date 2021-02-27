@@ -3,19 +3,24 @@ require "json"
 
 class Hailo::Server
   class LearnRequest
-    JSON.mapping(input: String)
+    include JSON::Serializable
+    property input : String
   end
 
   class LearnAndReplyRequest
-    JSON.mapping(input: String)
+    include JSON::Serializable
+    property input : String
   end
 
   class ReplyRequest
-    JSON.mapping(input: String?)
+    include JSON::Serializable
+    property input : String?
   end
 
   class Response
-    JSON.mapping(reply: String?, error: String?)
+    include JSON::Serializable
+    property reply : String?
+    property error : String?
 
     def initialize(@reply = nil, @error = nil); end
   end
