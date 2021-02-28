@@ -1,6 +1,6 @@
 language: crystal
 crystal:
-- nightly
+- latest
 
 script:
 - crystal spec
