@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="crystal_docs.project_version" content="HEAD">
+<meta name="crystal_docs.project_name" content="hailo">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="hailo">
+  <title>Hailo::Markov - hailo HEAD</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          hailo
+        </a>
+      </h1>
+
+      <span class="project-version">
+        HEAD
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="hailo/Hailo" data-name="hailo">
+      <a href="../Hailo.html">Hailo</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hailo/Hailo/CLI" data-name="hailo::cli">
+      <a href="../Hailo/CLI.html">CLI</a>
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Expression" data-name="hailo::expression">
+      <a href="../Hailo/Expression.html">Expression</a>
+      
+    </li>
+  
+  <li class="parent " data-id="hailo/Hailo/Learn" data-name="hailo::learn">
+      <a href="../Hailo/Learn.html">Learn</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hailo/Hailo/Learn/Cache" data-name="hailo::learn::cache">
+      <a href="../Hailo/Learn/Cache.html">Cache</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/LinkCounts" data-name="hailo::linkcounts">
+      <a href="../Hailo/LinkCounts.html">LinkCounts</a>
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Lists" data-name="hailo::lists">
+      <a href="../Hailo/Lists.html">Lists</a>
+      
+    </li>
+  
+  <li class=" current" data-id="hailo/Hailo/Markov" data-name="hailo::markov">
+      <a href="../Hailo/Markov.html">Markov</a>
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Parse" data-name="hailo::parse">
+      <a href="../Hailo/Parse.html">Parse</a>
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Progress" data-name="hailo::progress">
+      <a href="../Hailo/Progress.html">Progress</a>
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Reply" data-name="hailo::reply">
+      <a href="../Hailo/Reply.html">Reply</a>
+      
+    </li>
+  
+  <li class="parent " data-id="hailo/Hailo/Server" data-name="hailo::server">
+      <a href="../Hailo/Server.html">Server</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hailo/Hailo/Server/LearnAndReplyRequest" data-name="hailo::server::learnandreplyrequest">
+      <a href="../Hailo/Server/LearnAndReplyRequest.html">LearnAndReplyRequest</a>
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Server/LearnRequest" data-name="hailo::server::learnrequest">
+      <a href="../Hailo/Server/LearnRequest.html">LearnRequest</a>
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Server/ReplyRequest" data-name="hailo::server::replyrequest">
+      <a href="../Hailo/Server/ReplyRequest.html">ReplyRequest</a>
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Server/Response" data-name="hailo::server::response">
+      <a href="../Hailo/Server/Response.html">Response</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Store" data-name="hailo::store">
+      <a href="../Hailo/Store.html">Store</a>
+      
+    </li>
+  
+  <li class="parent " data-id="hailo/Hailo/Token" data-name="hailo::token">
+      <a href="../Hailo/Token.html">Token</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hailo/Hailo/Token/Probability" data-name="hailo::token::probability">
+      <a href="../Hailo/Token/Probability.html">Probability</a>
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Token/Spacing" data-name="hailo::token::spacing">
+      <a href="../Hailo/Token/Spacing.html">Spacing</a>
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/Token/State" data-name="hailo::token::state">
+      <a href="../Hailo/Token/State.html">State</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="hailo/Hailo/TokenId" data-name="hailo::tokenid">
+      <a href="../Hailo/TokenId.html">TokenId</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> Hailo::Markov
+
+</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="direct-including-types" class="anchor" href="#direct-including-types">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Direct including types
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../Hailo.html">Hailo</a></li>
+    
+      <li class="other-type"><a href="../Hailo/Learn/Cache.html">Hailo::Learn::Cache</a></li>
+    
+  </ul>
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/hailo/hailo.cr/blob/b2d2ad0f38af505ff33076560f58494e9c07f446/src/hailo/markov.cr#L1" target="_blank">
+        hailo/markov.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="BOUNDARY_TOKEN_ID">
+        <strong>BOUNDARY_TOKEN_ID</strong> = <code><span class="n">0</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="DEFAULT_MARKOV_ORDER">
+        <strong>DEFAULT_MARKOV_ORDER</strong> = <code><span class="n">2</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+</body>
+</html>
